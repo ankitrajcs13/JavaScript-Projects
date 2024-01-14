@@ -1,0 +1,51 @@
+html::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url(https://img.freepik.com/premium-photo/stopwatch-human-hand-isolated-background_488220-26671.jpg);
+    background-size: cover;
+    filter: blur(4px); /* Adjust the blur value as needed */
+    z-index: -1;
+  }
+body{
+    margin-top: 150px;
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
+    height:100%;    
+    
+}
+
+.wrapper{
+    width: 800px;
+    margin: 30px auto;
+    color: white;
+    text-align: center;
+}
+h1,p{
+    font-family: 'Roboto', sans-serif;
+    font-weight: 100;
+    font-size: 2.6em;
+    text-transform: uppercase;
+}
+
+
+button{
+    background:#ffa600;
+    color:#fff;
+    border: solid 1px #fff;
+    text-decoration:none;
+    cursor:pointer;
+    font-size:1.2em;
+    padding:18px 10px;
+    width:180px;
+    margin: 10px;
+     outline: none;
+      &:hover{
+        @include transition;
+        background:#fff;
+        border: solid 1px #fff;
+        color:#ffa600;
+        }
+}
