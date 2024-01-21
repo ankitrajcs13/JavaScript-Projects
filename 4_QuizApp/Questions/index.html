@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz App</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+    
+</head>
+
+<body>
+    <div class="main">
+        <h1 class="head">Quiz App</h1>
+        <div class="container">
+            <div class="quiz-container">
+                <div class="question-timer-container">
+                    <div id="question" class="question"></div>
+                    <div id="time" class="timer"></div>
+                </div>
+                <img class="ques" src="/images/ques.png" alt="">
+                <div id="options">
+                    <button class="option-btn" onclick="checkAnswer(0)">Option 1</button>
+                    <button class="option-btn" onclick="checkAnswer(1)">Option 2</button>
+                    <button class="option-btn" onclick="checkAnswer(2)">Option 3</button>
+                    <button class="option-btn" onclick="checkAnswer(3)">Option 4</button>
+                </div>
+                <button class="btn" onclick="nextQuestion()">Next</button>
+            </div>
+        </div>
+        <div id="popup" class="popup">
+            <div id="popup-content" class="popup-content">
+                <span id="popup-message" class="popup-message"></span>
+                <button id="popup-close" class="popup-close" onclick="closePopup()">Okay</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
