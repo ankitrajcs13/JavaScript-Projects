@@ -67,7 +67,7 @@ function nextQuestion() {
         showPopup("Quiz completed! Correct answers: " + correctAnswers);
 
         setTimeout(function(){
-            window.location.href= '/index.html'
+            window.location.href= 'https://ankitrajcs13.github.io/JavaScript-Projects/4_QuizApp/index.html'
 
         },5000);
     }
