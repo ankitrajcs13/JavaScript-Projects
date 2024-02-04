@@ -12,7 +12,7 @@ function validatePin(){
             sessionStorage.setItem("quizPin", pinInp);
 
             // Redirect to the Questions page
-            window.location.href = '/Questions/index.html';
+            window.location.href = 'https://ankitrajcs13.github.io/JavaScript-Projects/4_QuizApp/Questions/index.html';
         }, 2000);
     }
     else{

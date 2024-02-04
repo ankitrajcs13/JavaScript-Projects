@@ -223,7 +223,7 @@ document.addEventListener("DOMContentLoaded", function () {
     set(ref(db, "User/" + userUid + "/" + joinKey), quizData);
 
     alert("Quiz saved successfully!");
-    window.location.href = '/Users/Create/index.html'
+    window.location.href = 'https://ankitrajcs13.github.io/JavaScript-Projects/4_QuizApp/Users/Create/index.html'
   }
   fetchQuizzes();
 });

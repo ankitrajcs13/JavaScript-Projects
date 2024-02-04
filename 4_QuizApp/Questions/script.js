@@ -72,7 +72,7 @@ function fetchQuestions(quizKey) {
         console.error("Error fetching quiz data:", error);
         // Handle the error, e.g., show an error message or redirect to an error page
         // For example, you can redirect to an error page like this:
-        window.location.href = '/error.html';
+        window.location.href = 'https://ankitrajcs13.github.io/JavaScript-Projects/4_QuizApp/error.html';
     });
   }
   

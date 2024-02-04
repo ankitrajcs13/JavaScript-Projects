@@ -9,15 +9,15 @@ document.addEventListener("DOMContentLoaded", function () {
     // Add click event listeners
     signupBtn.addEventListener("click", function () {
         // Redirect to the SignUp/Login page
-        window.location.href = "/Users/index.html"; // Replace with the actual path
+        window.location.href = "https://ankitrajcs13.github.io/JavaScript-Projects/4_QuizApp/Users/index.html"; 
     });
 
     joinBtn.addEventListener("click", function () {
         // Redirect to the Join Game page
-        window.location.href = "/Quiz/index.html"; // Replace with the actual path
+        window.location.href = "https://ankitrajcs13.github.io/JavaScript-Projects/4_QuizApp/Quiz/index.html"; 
     });
     bcktoHome.addEventListener("click", function () {
         // console.log("hello")
-        window.location.href = "/index.html"; // Replace with the actual path
+        window.location.href = "https://ankitrajcs13.github.io/JavaScript-Projects/4_QuizApp/index.html";
     });
 });
