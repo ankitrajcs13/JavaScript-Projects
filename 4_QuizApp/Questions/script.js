@@ -1,20 +1,81 @@
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+import {
+  getDatabase,
+  set,
+  ref,
+  push,
+  get,
+  child,
+} from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-analytics.js";
+
+import { firebaseConfig } from '../firebaseConfig.js';
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const db = getDatabase();
+const auth = getAuth(app);
+const dbref = ref(db);
+const analytics = getAnalytics(app);
+
+
+
+
+
+
 var currentQuestionIndex = 0;
 var questions;
 var correctAnswers = 0;
 var timerSeconds = 10;
 var timerInterval;
 
-function fetchQuestions() {
-    // Fetch questions from the JSON file
-    fetch('questions.json')
-        .then(response => response.json())
-        .then(data => {
-            questions = data;
-            displayQuestion();
-            startTimer();
-        })
-        .catch(error => console.error('Error fetching questions:', error));
-}
+// function fetchQuestions() {
+//     // Fetch questions from the JSON file
+//     fetch('questions.json')
+//         .then(response => response.json())
+//         .then(data => {
+//             questions = data;
+//             displayQuestion();
+//             startTimer();
+//         })
+//         .catch(error => console.error('Error fetching questions:', error));
+// }
+function fetchQuestions(quizKey) {
+    // Fetch questions for the specified quiz from Firebase
+    let userCreds = JSON.parse(localStorage.getItem("user-creds"));
+    console.log("Printing cred", userCreds);
+
+    let heading = document.getElementById("name");
+
+    var userUid = userCreds.uid; // You need to retrieve the user's UID, either from authentication or another source
+    const quizRef = ref(db, "User/" + userUid + "/" + quizKey);
+  
+    get(quizRef)
+      .then((snapshot) => {
+        const quizData = snapshot.val();
+        heading.innerText = `${quizData.quizName}`
+        console.log(quizData)
+        if (quizData) {
+          questions = quizData.questions;
+          displayQuestion();
+          startTimer();
+        } else {
+          console.error("Quiz data not found.");
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching quiz data:", error);
+        // Handle the error, e.g., show an error message or redirect to an error page
+        // For example, you can redirect to an error page like this:
+        window.location.href = '/error.html';
+    });
+  }
+  
 
 function displayQuestion() {
     var questionElement = document.getElementById("question");
@@ -42,11 +103,14 @@ function checkAnswer(selectedIndex) {
     if (selectedIndex === -1) {
         showPopup("Time's up! You didn't select an option.");
     } else {
-        if (selectedIndex === questions[currentQuestionIndex].correctAnswer) {
+        var correctOption = questions[currentQuestionIndex].correctOption.charCodeAt(0) - 65 ;
+        console.log(correctOption)
+
+        if (correctOption && selectedIndex === correctOption) {
             correctAnswers++;
             showPopup("Correct!");
         } else {
-            showPopup("Incorrect. The correct answer is: " + questions[currentQuestionIndex].options[questions[currentQuestionIndex].correctAnswer]);
+            showPopup("Incorrect. The correct answer is: " + questions[currentQuestionIndex].options[correctOption]);
         }
     }
 
@@ -115,4 +179,6 @@ function closePopup() {
 }
 
 // Initial question display
-fetchQuestions();
+let quizKey = sessionStorage.getItem("quizPin");
+console.log(quizKey);
+fetchQuestions(quizKey);

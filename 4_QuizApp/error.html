@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RapidQuiz</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+    <div class="main">
+        <h1 class="head">Error - Wrong Quiz Pin</h1>
+        <h4 style="color: aliceblue;">Sorry, you entered the wrong quiz pin. Please make sure you've entered the correct pin and try again.</h2>
+        <!-- You can add additional content or styling as needed -->'
+        <div class="container">
+            <button id="bcktoHome" class="btn">Back to Home!</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+        var bcktoHome = document.getElementById("bcktoHome");
+
+        bcktoHome.addEventListener("click", function () {
+            // console.log("hello")
+            window.location.href = "/index.html"; 
+        });
+        });
+    </script>
+</body>
+
+</html>

@@ -13,14 +13,13 @@
 
 <body>
     <div class="main">
-        <h1 class="head">Welcome to Rapid Quiz</h1>
-        <img class="img" src="./images/bg.png" alt="" srcset="">
-        <div class="row">
-            <div class="container">
-                <button id="signupBtn" class="btn">SignUp / Login</button>
-            </div>
-            <div class="container">
-                <button id="joinBtn" class="btn">Join Game</button>
+        <h1 class="head">Rapid Quiz</h1>
+        <img class="img" src="../images/bg.png" alt="" srcset="">
+        <div class="container">
+            <div id="loader" class="loader"></div>
+            <div class="dialog-box">
+                <input id="pinInput" placeholder="Enter Pin" class="inp" type="number">
+                <button onclick="validatePin()" class="btn">Enter</button>
             </div>
         </div>
     </div>

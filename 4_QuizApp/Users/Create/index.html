@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Questions - RapidQuiz</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <script src="config.js"></script>
+</head>
+
+<body>
+    <div class="nv">
+        <nav class="navbar">
+            <div class="navbar-container container">
+                <input type="checkbox" name="" id="">
+                <div class="hamburger-lines">
+                    <span class="line line1"></span>
+                    <span class="line line2"></span>
+                    <span class="line line3"></span>
+                </div>
+                <ul class="menu-items">
+                    <!-- <li><a href="#">Home</a></li>
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Category</a></li> -->
+                    <li><a href="#" id="user"></a></li>
+                    <li><a href="#" onclick="Signout()" id="signoutbtn">Sign Out</a></li>
+
+                </ul>
+                <h1 class="logo">Rapid Quiz</h1>
+            </div>
+        </nav>
+    </div>
+
+    <div class="quiz-creator">
+        <h1 class="head">Quiz Creator</h1>
+        <div class="topic-form">
+            <label for="topic" id="">Quiz Topic:</label>
+            <input type="text" id="topic" class="quizTopic" placeholder="Enter quiz topic">
+            <!-- <button id="addTopicBtn" class="btn">Add Topic</button> -->
+        </div>
+        <div id="slides-container">
+            <!-- Slides will be dynamically added here -->
+        </div>
+        <button id="addSlideBtn" class="btn">Add Slide</button>
+        <button id="saveQuizBtn" class="btn">Save Quiz</button>
+    </div>
+
+    <div id="quizzes-table-container"></div>
+
+    <script type="module" src="script.js"></script>
+    
+
+
+    
+    <script>
+        let userCreds = JSON.parse(localStorage.getItem("user-creds"));
+        let userInfo = JSON.parse(localStorage.getItem('user-info'));
+
+        let Signout = () => {
+            console.log('clicked')
+            localStorage.removeItem("user-creds");
+            localStorage.removeItem("user-info");
+            window.location.href = '/index.html'
+        }
+        let CheckCred = () => {
+            console.log('Checking Credentials');
+            if (!localStorage.getItem("user-creds")) {
+                console.log('Redirecting to /Users/index.html');
+                window.location.href = '/Users/index.html';
+            } else {
+                console.log('User credentials exist.');
+            }
+        }
+
+
+        window.addEventListener('load', CheckCred)
+        let signoutbtn = document.getElementById('signoutbtn')
+        let user = document.getElementById('user')
+        user.innerText = `Welcome ${userInfo.name}`
+        console.log(userInfo);
+
+        signoutbtn.addEventListener('click', Signout);
+    </script>
+</body>
+
+</html>

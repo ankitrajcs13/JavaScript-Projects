@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://kit.fontawesome.com/4234583b3c.js" crossorigin="anonymous"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.8.4/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.8.4/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.8.4/firebase-auth-compat.js"></script>
+</head>
+<body>
+    <div class="form-modal">
+    
+        <div class="form-toggle">
+            <button id="login-toggle" onclick="toggleLogin()">log in</button>
+            <button id="signup-toggle" onclick="toggleSignup()">sign up</button>
+        </div>
+    
+        <div id="login-form">
+            <form id="lg">
+                <input type="text" id="emaillg" placeholder="Enter email or username"/>
+                <input type="password" id="pwdlg" placeholder="Enter password"/>
+                <button type="submit" class="btn login">login</button>
+                <p><a href="javascript:void(0)">Forgotten account</a></p>
+                <hr/>
+                <button type="button" class="btn -box-sd-effect"> <i class="fa fa-google fa-lg" aria-hidden="true"></i> sign in with google</button>
+                <button type="button" class="btn -box-sd-effect"> <i class="fa fa-linkedin fa-lg" aria-hidden="true"></i> sign in with linkedin</button>
+                <button type="button" class="btn -box-sd-effect"> <i class="fa fa-windows fa-lg" aria-hidden="true"></i> sign in with microsoft</button>
+            </form>
+        </div>
+    
+        <div id="signup-form">
+            <form id="rg">
+                <input type="email" id="useremail" placeholder="Enter your email"/>
+                <input type="text" id="user" placeholder="Choose username"/>
+                <input type="password" id="userpass" placeholder="Create password"/>
+                <input type="password" placeholder="Confirm password"/>
+                <input type="submit" class="btn" id="signupbtn" value="Sign up"  />
+                <p>Clicking <strong>create account</strong> means that you are agree to our <a href="javascript:void(0)">terms of services</a>.</p>
+                <hr/>
+                <button type="button" class="btn -box-sd-effect"> <i class="fa fa-google fa-lg" aria-hidden="true"></i> sign up with google</button>
+                <button type="button" class="btn -box-sd-effect"> <i class="fa fa-linkedin fa-lg" aria-hidden="true"></i> sign up with linkedin</button>
+                <button type="button" class="btn -box-sd-effect"> <i class="fa fa-windows fa-lg" aria-hidden="true"></i> sign up with microsoft</button>
+            </form>
+        </div>
+    
+    </div>
+    
+    <script src="script.js"></script>
+    <!-- <script src="firebaseConfig.js"></script>
+    <script src="signUp.js"></script> -->
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getDatabase,set,ref, get, child } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+        import { getAuth, createUserWithEmailAndPassword,signInWithEmailAndPassword  } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-analytics.js";
+      
+        import { firebaseConfig } from '../firebaseConfig.js';
+      
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase();
+        const auth = getAuth(app);
+        const dbref = ref(db);
+        const analytics = getAnalytics(app);
+
+
+        let Email = document.getElementById('useremail');
+        let user = document.getElementById('user');
+        let pwd = document.getElementById('userpass');
+        let mn = document.getElementById('rg')
+
+        let RegisterUser = evt =>{
+            evt.preventDefault();
+            createUserWithEmailAndPassword(auth,Email.value,pwd.value)
+            .then((credentials) =>{
+                set(ref(db,'User/' + credentials.user.uid), {
+                    Name:user.value,
+                })
+                alert("Registered Succefully")
+                toggleLogin();
+            })
+            .catch((error) =>{
+                alert(error.message);
+                console.log(error.code);
+                console.log(error.message);
+            })
+        }
+
+        mn.addEventListener('submit', RegisterUser);
+
+        let email_lg = document.getElementById('emaillg')
+        let pwd_lg = document.getElementById('pwdlg')
+        let lg = document.getElementById('lg')
+        
+
+        let LoginUser = evt =>{
+            evt.preventDefault();
+            signInWithEmailAndPassword(auth,email_lg.value,pwd_lg.value)
+            .then((credentials) =>{
+                console.log(credentials);
+                get(child(dbref, 'User/' + credentials.user.uid)).then((snapshot)=>{
+                    if(snapshot.exists){
+                        localStorage.setItem("user-info", JSON.stringify({
+                            name : snapshot.val().Name,
+                        }))
+                        localStorage.setItem("user-creds", JSON.stringify(credentials.user));
+                        window.location.href ='/Users/Create/index.html'
+                    }
+                })
+            })
+            .catch((error) =>{
+                alert(error.message);
+                console.log(error.code);
+                console.log(error.message);
+            })
+        }
+        lg.addEventListener('submit', LoginUser);
+
+        function toggleSignup(){
+    document.getElementById("login-toggle").style.backgroundColor="#fff";
+    document.getElementById("login-toggle").style.color="#222";
+    document.getElementById("signup-toggle").style.backgroundColor="#57b846";
+    document.getElementById("signup-toggle").style.color="#fff";
+    document.getElementById("login-form").style.display="none";
+    document.getElementById("signup-form").style.display="block";
+    
+    }
+
+    function toggleLogin(){
+    document.getElementById("login-toggle").style.backgroundColor="#57B846";
+    document.getElementById("login-toggle").style.color="#fff";
+    document.getElementById("signup-toggle").style.backgroundColor="#fff";
+    document.getElementById("signup-toggle").style.color="#222";
+    document.getElementById("signup-form").style.display="none";
+    document.getElementById("login-form").style.display="block";
+    
+    }
+    
+
+      </script>
+    
+</body>
+</html>

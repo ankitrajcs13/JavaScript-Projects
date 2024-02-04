@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Questions - RapidQuiz</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="nv">
+        <nav class="navbar">
+            <div class="navbar-container container">
+                <input type="checkbox" name="" id="">
+                <div class="hamburger-lines">
+                    <span class="line line1"></span>
+                    <span class="line line2"></span>
+                    <span class="line line3"></span>
+                </div>
+                <ul class="menu-items">
+                    <!-- <li><a href="#">Home</a></li>
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Category</a></li> -->
+                    <li><a href="#" id="user"></a></li>
+                    <li><a href="#" onclick="Signout()" id="signoutbtn">Sign Out</a></li>
+
+                </ul>
+                <h1 class="logo">Rapid Quiz</h1>
+            </div>
+        </nav>
+    </div>
+    <div class="ques">
+        <h1 class="head">Add Questions</h1>
+        <div class="question-form">
+            <label for="question">Question:</label>
+            <input type="text" id="question" placeholder="Enter your question">
+
+            <label for="option1">Option 1:</label>
+            <input type="text" id="option1" placeholder="Enter option 1">
+
+            <label for="option2">Option 2:</label>
+            <input type="text" id="option2" placeholder="Enter option 2">
+
+            <label for="option3">Option 3:</label>
+            <input type="text" id="option3" placeholder="Enter option 3">
+
+            <label for="option4">Option 4:</label>
+            <input type="text" id="option4" placeholder="Enter option 4">
+
+            <button id="addQuestionBtn" class="btn">Add Question</button>
+        </div>
+    </div>
+
+
+    <script src="script.js"></script>
+    <script>
+        let userCreds = JSON.parse(localStorage.getItem("user-creds"));
+        let userInfo = JSON.parse(localStorage.getItem('user-info'));
+
+        let Signout = () => {
+            console.log('clicked')
+            localStorage.removeItem("user-creds");
+            localStorage.removeItem("user-info");
+            window.location.href = '/index.html'
+        }
+        let CheckCred = () => {
+            console.log('Checking Credentials');
+            if (!localStorage.getItem("user-creds")) {
+                console.log('Redirecting to /Users/index.html');
+                window.location.href = '/Users/index.html';
+            } else {
+                console.log('User credentials exist.');
+            }
+        }
+
+
+        window.addEventListener('load', CheckCred)
+        let signoutbtn = document.getElementById('signoutbtn')
+        let user = document.getElementById('user')
+        user.innerText = `Welcome ${userInfo.name}`
+        console.log(userInfo);
+
+        signoutbtn.addEventListener('click', Signout);
+    </script>
+</body>
+
+</html>

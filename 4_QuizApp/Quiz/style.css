@@ -23,7 +23,7 @@ body {
 }
 
 .btn {
-    background-color: #0989b7;
+    background-color: #333333;
     color: #fff;
     padding: 12px 24px; 
     border: none;
@@ -33,7 +33,7 @@ body {
 }
 
 .btn:hover {
-    background-color: #1146d7;
+    background-color: #a39e9e;
 }
 
 .container {
@@ -41,7 +41,6 @@ body {
     flex-direction: column;
     align-items: center;
     margin-top: 20px;
-    margin: 10px;
 }
 
 .dialog-box {
@@ -75,7 +74,17 @@ body {
     height: 10em;
 }
 
-.row{
-    display: flex;
-    justify-content: space-between;
+.loader {
+    border: 8px solid #f3f3f3;
+    border-top: 8px solid #3498db;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+    display: none; /* Initially hide the loader */
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
