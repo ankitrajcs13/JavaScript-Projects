@@ -60,9 +60,8 @@ function fetchQuestions(quizKey) {
 
     let heading = document.getElementById("name");
 
-    //var userUid = userCreds.uid; // You need to retrieve the user's UID, either from authentication or another source
-    //const quizRef = ref(db, "User/" + userUid + "/" + quizKey);
-  const quizRef = ref(db, "User/"  + quizKey);
+   var userUid = userCreds.uid; // You need to retrieve the user's UID, either from authentication or another source
+   const quizRef = ref(db, "User/" + userUid + "/" + quizKey);
   
     get(quizRef)
       .then((snapshot) => {
